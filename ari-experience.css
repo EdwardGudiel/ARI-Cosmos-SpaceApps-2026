@@ -1,0 +1,192 @@
+/* ARI • Cosmic voice-first experience — isolated from legacy mission systems. */
+:root { --ari-ink:#000; --ari-ice:#f5f8ff; --ari-dim:#a3adbd; --ari-cyan:#a5eaff; --ari-line:rgba(226,239,255,.15); }
+html,body {min-height:100%;background:#000!important;}
+body{color:#f4f7fa;overflow-x:hidden;}
+body > .topbar{display:none!important;}
+body > .wrap{position:relative;z-index:2;max-width:1200px;margin:auto;padding:100px clamp(18px,5vw,50px) 160px;}
+body > .wrap > #hoy {display:none!important;}
+body > .wrap .view:not(#hoy){min-height:calc(100vh - 190px);}
+body > .wrap .view:not(#hoy) .panel{background:rgba(13,16,23,.82);border:1px solid var(--ari-line);border-radius:20px;backdrop-filter:blur(14px);}
+body > .wrap .view:not(#hoy) h2{font-family:Inter,system-ui,sans-serif;}
+#cosmic-backdrop{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;background:#000;}
+#cosmic-backdrop canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9;}
+.cosmic-nebula{position:absolute;width:80vw;height:80vh;border-radius:50%;filter:blur(60px);opacity:.32;will-change:transform;}
+.cosmic-nebula--one{left:-30vw;top:-22vh;background:radial-gradient(ellipse,rgba(61,48,108,.25),transparent 67%);}
+.cosmic-nebula--two{right:-29vw;top:22vh;background:radial-gradient(ellipse,rgba(22,62,88,.16),transparent 69%);}
+.cosmic-planet{position:absolute;width:min(58vw,780px);height:min(58vw,780px);right:-19%;bottom:-75%;border-radius:50%;opacity:.36;border:1px solid rgba(161,190,255,.32);box-shadow:0 -30px 120px -60px rgba(78,111,184,.32),inset 0 24px 75px -60px rgba(183,213,255,.46);background:radial-gradient(ellipse at 25% 5%,rgba(65,102,163,.11),transparent 46%),#010207;}
+.cosmic-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 49% 42%,transparent 10%,rgba(0,0,0,.24) 74%,rgba(0,0,0,.8) 100%);}
+#ari-experience{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;}
+#ari-experience[hidden],#ari-simulation[hidden]{display:none!important;}
+.ari-top{position:relative;z-index:5;width:min(1250px,100%);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:28px clamp(19px,5.5vw,75px) 10px;}
+.ari-mark{display:flex;align-items:center;gap:11px;color:#f8fbff;text-decoration:none;}
+.ari-mark-symbol{display:grid;place-items:center;width:39px;height:39px;border:1px solid rgba(190,215,254,.33);border-radius:12px;box-shadow:inset 0 0 16px rgba(91,145,202,.12);font-size:23px;font-weight:300;}
+.ari-mark-text{font-size:20px;font-weight:680;letter-spacing:.13em;line-height:1.1;}
+.ari-mark-text small{display:block;margin-top:4px;font-size:8px;letter-spacing:.38em;color:var(--ari-dim);font-weight:550;}
+.ari-top-actions{display:flex;align-items:center;gap:12px;}
+.ari-connection{font-size:11px;letter-spacing:.01em;color:#b5c4d1;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.ari-status-dot{width:7px;height:7px;border-radius:100%;background:#86d4a4;box-shadow:0 0 12px #78d8a57f;}
+.ari-status-dot.offline{background:#e8b98a;box-shadow:0 0 12px #e8b98a66;}
+.ari-small-button{border:1px solid rgba(226,237,255,.18);color:#e1ebf7;background:rgba(255,255,255,.04);border-radius:999px;min-height:37px;padding:0 14px;cursor:pointer;font-size:12px;transition:background .2s,border-color .2s;}
+.ari-small-button:hover{background:rgba(255,255,255,.1);border-color:rgba(226,237,255,.34);}
+.ari-page{width:min(1180px,100%);margin:0 auto;padding:30px clamp(18px,5vw,64px) 150px;}
+.ari-home{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100svh - 100px);padding-top:3vh;padding-bottom:142px;text-align:center;gap:0;}
+.ari-overline{color:#91a6be;font-size:10px;letter-spacing:.33em;font-weight:650;text-transform:uppercase;}
+.ari-intro-title{font-family:Inter,'Segoe UI',system-ui,sans-serif;font-size:clamp(25px,4vw,44px);font-weight:530;letter-spacing:-.056em;line-height:1.17;margin:13px 0 7px;max-width:720px;text-wrap:balance;}
+.ari-intro-sub{color:#8c9aab;font-size:clamp(12px,1.4vw,14px);max-width:490px;line-height:1.65;min-height:22px;}
+.ari-orb-wrap{position:relative;width:clamp(230px,31vw,350px);height:clamp(230px,31vw,350px);margin:4vh auto 2vh;display:grid;place-items:center;}
+.ari-orb-glow{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(54,100,174,.17) 0%,rgba(41,82,156,.12) 32%,transparent 67%);filter:blur(12px);animation:ari-glow 6s ease-in-out infinite;}
+.ari-ring{position:absolute;border-radius:50%;border:1px solid rgba(137,202,249,.16);}
+.ari-ring--outer{width:91%;height:91%;animation:ari-turn 36s linear infinite;border-style:dashed;opacity:.55;}
+.ari-ring--middle{width:76%;height:76%;border-color:rgba(99,161,216,.13);animation:ari-turn 26s linear infinite reverse;}
+.ari-ring--inner{width:64%;height:64%;border-color:rgba(122,195,241,.2);box-shadow:0 0 50px rgba(85,155,222,.07),inset 0 0 35px rgba(52,103,180,.06);}
+.ari-orb-button{position:relative;z-index:2;width:51%;height:51%;border-radius:50%;border:1px solid rgba(191,227,255,.5);cursor:pointer;color:var(--ari-ice);display:grid;place-items:center;background:radial-gradient(circle at 40% 33%,rgba(115,193,252,.28),rgba(25,68,119,.46) 27%,rgba(8,17,34,.96) 73%);box-shadow:0 0 40px rgba(48,124,194,.2),inset 0 0 31px rgba(81,164,220,.12);transition:transform .2s,box-shadow .3s;}
+.ari-orb-button:hover{transform:scale(1.035);box-shadow:0 0 59px rgba(91,163,244,.32),inset 0 0 31px rgba(81,164,220,.22);}
+.ari-orb-button:focus-visible{outline:2px solid #abebff;outline-offset:8px;}
+.ari-orb-core{width:31%;height:31%;border-radius:50%;background:radial-gradient(circle at 38% 30%,#fff 0%,#b9e7ff 24%,#7dc8fc 47%,#2561b7 78%,#112952);box-shadow:0 0 30px rgba(119,208,255,.8),0 0 70px rgba(45,117,218,.37);}
+.ari-orb-halo{position:absolute;width:76%;height:76%;border-radius:100%;border:1px solid rgba(190,238,255,.24);animation:ari-turn 11s linear infinite;}
+.ari-orb-halo::before,.ari-orb-halo::after{content:"";position:absolute;top:50%;width:4px;height:4px;border-radius:50%;background:#e0f8ff;box-shadow:0 0 12px #a5eaff;}
+.ari-orb-halo::before{left:-2px;}.ari-orb-halo::after{right:-2px;}
+.ari-orb-wrap.is-listening .ari-orb-button,.ari-orb-wrap.is-speaking .ari-orb-button{animation:ari-pulse 1.65s ease-in-out infinite;border-color:rgba(185,238,255,.88);}
+.ari-orb-wrap.is-speaking .ari-orb-glow{background:radial-gradient(circle,rgba(62,145,228,.26),rgba(46,94,190,.13) 41%,transparent 70%);}
+.ari-orb-wrap.is-connecting .ari-ring--outer{animation-duration:5s;border-color:rgba(131,201,255,.49);}
+.ari-orb-wrap.is-error .ari-orb-button{border-color:rgba(244,154,154,.6);}
+.ari-waveform{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:4px;height:23px;opacity:.5;}
+.ari-waveform span{width:2px;height:7px;border-radius:5px;background:#96d9fa;animation:ari-wave 1.1s ease-in-out infinite;animation-play-state:paused;}
+.ari-waveform span:nth-child(2n){animation-delay:-.35s}.ari-waveform span:nth-child(3n){animation-delay:-.8s}
+.ari-orb-wrap.is-listening .ari-waveform span,.ari-orb-wrap.is-speaking .ari-waveform span{animation-play-state:running;}
+.ari-session-state{font-size:10px;font-weight:650;letter-spacing:.21em;text-transform:uppercase;color:#9eb5ca;min-height:18px;}
+.ari-live-area{width:min(650px,100%);min-height:83px;margin:13px 0 1px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;}
+.ari-live-subtitle{min-height:22px;color:#eaf3ff;font-size:clamp(15px,2vw,18px);line-height:1.47;max-width:650px;text-wrap:balance;}
+.ari-heard{font-size:12px;color:#94a3b6;min-height:18px;max-width:590px;line-height:1.5;}
+.ari-start-hint{font-size:11px;color:#8e9aaa;margin-top:1px;}
+.ari-live-actions{display:flex;gap:10px;margin-top:11px;justify-content:center;flex-wrap:wrap;}
+.ari-action{border-radius:999px;border:1px solid rgba(228,243,255,.2);color:#e9f3ff;padding:10px 18px;min-height:40px;background:rgba(255,255,255,.065);cursor:pointer;backdrop-filter:blur(22px);font-size:12px;transition:background .2s,transform .2s;}
+.ari-action:hover{background:rgba(255,255,255,.12);transform:translateY(-1px);}
+.ari-action--strong{background:rgba(211,237,255,.14);border-color:rgba(208,235,255,.3);}
+.ari-indicators{margin-top:20px;width:min(610px,100%);min-height:70px;display:flex;gap:8px;align-items:stretch;justify-content:center;flex-wrap:wrap;}
+.ari-indicator{min-width:118px;max-width:180px;flex:1;border:1px solid rgba(214,235,255,.14);background:rgba(23,29,45,.41);border-radius:16px;padding:12px 15px;text-align:left;box-shadow:inset 0 1px rgba(255,255,255,.035);backdrop-filter:blur(15px);animation:ari-rise .45s both;}
+.ari-indicator small{display:block;color:#8697ac;font-size:10px;margin-bottom:6px;}
+.ari-indicator strong{font-size:19px;font-weight:600;letter-spacing:-.03em;color:#ebf6ff;}
+.ari-indicator em{display:block;margin-top:5px;font-size:10px;color:#a1b1bd;font-style:normal;}
+.ari-minimal-note{font-size:10px;color:#637386;margin-top:8px;}
+.ari-bottom-nav{z-index:15;position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(484px,calc(100% - 26px));display:grid;grid-template-columns:repeat(4,1fr);padding:7px;border:1px solid rgba(219,231,255,.24);background:linear-gradient(147deg,rgba(166,178,197,.17),rgba(48,59,85,.15) 56%,rgba(161,182,224,.11));box-shadow:0 15px 45px rgba(0,0,0,.58),inset 0 1px 0 rgba(255,255,255,.14);border-radius:25px;backdrop-filter:blur(25px) saturate(155%);-webkit-backdrop-filter:blur(25px) saturate(155%);}
+.ari-tab{display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;text-decoration:none;min-height:53px;border-radius:18px;color:#9baaBE;transition:all .2s;position:relative;white-space:nowrap;}
+.ari-tab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.ari-tab span{font-size:10px;}
+.ari-tab[aria-current="page"]{background:linear-gradient(145deg,rgba(237,244,255,.18),rgba(129,152,195,.1));color:#f1f8ff;box-shadow:inset 0 1px rgba(255,255,255,.16),0 5px 12px rgba(0,0,0,.14);}
+.ari-tab:hover{color:#fff;}
+.ari-panel-heading{margin-bottom:28px;}
+.ari-panel-heading small{font-size:10px;letter-spacing:.23em;color:#96adc0;text-transform:uppercase;}
+.ari-panel-heading h1{font:550 clamp(27px,4.2vw,47px)/1.1 Inter,system-ui,sans-serif;letter-spacing:-.05em;margin:12px 0 9px;color:#f4f7ff;}
+.ari-panel-heading p{font-size:13px;color:#95a4b5;max-width:650px;}
+.ari-sim-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+.ari-sim-card,.ari-sim-monitor{border:1px solid var(--ari-line);border-radius:22px;background:rgba(17,23,33,.68);backdrop-filter:blur(18px);padding:27px;box-shadow:inset 0 1px rgba(255,255,255,.035);}
+.ari-sim-card{display:flex;flex-direction:column;gap:11px;}
+.ari-sim-icon{width:39px;height:39px;border-radius:12px;background:rgba(175,207,253,.08);display:grid;place-items:center;color:#b3dbff;font-size:21px;}
+.ari-sim-card h2{font:550 19px Inter,system-ui,sans-serif;margin:0;}
+.ari-sim-card p{font-size:12px;color:#94a6b8;flex:1;margin:0;}
+.ari-sim-card button{margin-top:12px;align-self:flex-start;border:1px solid rgba(214,235,255,.27);background:rgba(194,227,255,.12);color:#eaf4ff;padding:12px 18px;border-radius:99px;cursor:pointer;font-size:12px;}
+.ari-sim-card button:hover{background:rgba(194,227,255,.23);}
+.ari-sim-monitor{grid-column:1/-1;text-align:center;margin-top:4px;}
+.ari-monitor-label{color:#91a5bc;font-size:10px;letter-spacing:.21em;}
+.ari-clock-big{font-variant-numeric:tabular-nums;font-size:clamp(45px,8vw,94px);font-weight:300;letter-spacing:-.075em;margin:14px 0 4px;color:#f3f8ff;line-height:1;}
+.ari-clock-message{font-size:13px;color:#a9bacb;min-height:20px;}
+.ari-countdown-track{height:3px;border-radius:12px;background:rgba(255,255,255,.12);overflow:hidden;margin:18px auto 0;max-width:440px;}
+.ari-countdown-progress{height:100%;width:0;background:#a0e6ff;box-shadow:0 0 11px rgba(160,230,255,.64);transition:width .25s;}
+.ari-sim-helper{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;color:#9cacc0;font-size:12px;}
+.ari-sim-helper button{background:none;border:1px solid rgba(218,233,255,.18);border-radius:99px;color:#c9d9e9;padding:7px 13px;cursor:pointer;}
+.ari-sim-helper button:hover{background:rgba(255,255,255,.08)}
+/* Keep Gemini's existing live engine and form data present, but move controls into the voice-first surface. */
+#chat-dialog.ari-headless,#check-dialog.ari-headless{position:fixed!important;left:-100vw!important;top:0!important;width:1px!important;height:1px!important;min-width:0!important;max-width:1px!important;max-height:1px!important;margin:0!important;padding:0!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;overflow:hidden!important;transform:none!important;border:0!important;}
+#reminder-dialog{border:1px solid rgba(224,241,255,.28)!important;background:linear-gradient(145deg,rgba(20,26,37,.98),rgba(3,5,10,.97))!important;color:#f5f9ff!important;border-radius:24px!important;box-shadow:0 30px 100px rgba(0,0,0,.8),0 0 80px rgba(46,108,184,.13);max-width:min(520px,calc(100vw - 28px));}
+#reminder-dialog::backdrop{background:rgba(0,0,0,.79);backdrop-filter:blur(11px);}
+#reminder-dialog h2{font-size:24px;font-family:Inter,system-ui,sans-serif;}
+#reminder-dialog .button.primary{background:#d5edff;color:#0a1827;border:0;border-radius:99px;}
+#reminder-dialog .button:not(.primary){border-radius:99px;}
+body > .wrap :is(.button,.panel,.check-tile){border-radius:13px;}
+.ari-floating-alert{position:fixed;z-index:40;left:50%;top:94px;transform:translateX(-50%);max-width:min(500px,calc(100% - 30px));min-width:min(330px,calc(100% - 30px));padding:13px 17px;background:rgba(27,35,52,.9);border:1px solid rgba(196,227,255,.32);color:#edf8ff;border-radius:17px;box-shadow:0 12px 48px rgba(0,0,0,.5);font-size:13px;backdrop-filter:blur(17px);text-align:center;animation:ari-rise .4s both;}
+.ari-floating-alert[hidden]{display:none;}
+@keyframes ari-turn{to{transform:rotate(360deg)}}
+@keyframes ari-glow{50%{transform:scale(1.12);opacity:.65}}
+@keyframes ari-pulse{50%{transform:scale(1.045)}}
+@keyframes ari-wave{0%,100%{height:5px}50%{height:20px}}
+@keyframes ari-rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:750px){.ari-top{padding-top:20px;}.ari-connection{font-size:0;gap:0;}.ari-connection .ari-status-dot{margin-right:3px;}.ari-top-actions{gap:7px;}.ari-small-button{font-size:11px;padding:0 10px;}.ari-home{padding-top:22px;justify-content:flex-start;min-height:calc(100svh - 90px);}.ari-orb-wrap{margin:4vh auto 2vh;width:clamp(210px,57vw,300px);height:clamp(210px,57vw,300px);}.ari-intro-title{margin-top:9px;}.ari-live-area{min-height:100px;}.ari-indicators{margin-top:6px;}.ari-indicator{min-width:100px;padding:10px 11px;}.ari-indicator strong{font-size:16px;}.ari-sim-grid{grid-template-columns:1fr;}.ari-sim-monitor{grid-column:auto;}.ari-sim-card{padding:21px;}.ari-page{padding-top:30px;}body > .wrap{padding:80px 18px 145px;}.cosmic-planet{right:-30%;bottom:-44%;}.ari-bottom-nav{bottom:max(12px,env(safe-area-inset-bottom));}.ari-tab{min-height:52px;}}
+@media(prefers-reduced-motion:reduce){.ari-orb-glow,.ari-ring,.ari-orb-button,.ari-orb-halo,.ari-waveform span{animation:none!important;}}
+
+#vision-dialog{border-radius:24px!important;background:rgba(9,13,22,.98)!important;color:#f1f8ff!important;border:1px solid rgba(217,239,255,.25)!important;box-shadow:0 20px 100px rgba(0,0,0,.8);}
+#vision-dialog::backdrop{background:rgba(0,0,0,.83);backdrop-filter:blur(9px);}
+#vision-dialog .optotype{font-size:clamp(90px,20vw,170px);filter:drop-shadow(0 0 16px rgba(158,219,255,.26));}
+#vision-dialog .button{border-radius:99px!important;}
+/* Voice wake phrase: a single explicit opt-in, then hands-free foreground use. */
+.ari-wake-panel{display:flex;flex-direction:column;align-items:center;max-width:410px;margin:13px auto 0;gap:7px;padding:0 12px}
+.ari-wake-panel .ari-action{font-size:12px;min-height:42px;padding-inline:21px;border-color:rgba(175,218,250,.36)}
+.ari-wake-panel .ari-action.is-enabled{background:rgba(61,160,138,.17);border-color:rgba(145,236,211,.46);color:#bff5e4}
+#ari-wake-status{font-size:11px;line-height:1.55;color:#93abc1;text-wrap:balance;max-width:340px;margin:0}
+.ari-live-actions .ari-action[hidden]{display:none!important}
+
+/* Evidencia visible durante respuestas de Gemini */
+.ari-evidence{width:min(610px,100%);margin:12px auto 2px;padding:13px 16px;border:1px solid rgba(161,214,245,.24);border-radius:18px;background:rgba(6,16,25,.75);text-align:left;backdrop-filter:blur(17px)}
+.ari-evidence[hidden]{display:none!important}
+.ari-evidence-title{font-size:10px;color:#a4d9f9;font-weight:650;letter-spacing:.14em;margin-bottom:9px}
+.ari-evidence-links{display:flex;gap:8px;flex-wrap:wrap}
+.ari-evidence-links a{display:flex;gap:5px;align-items:center;text-decoration:none;background:rgba(169,215,251,.09);border:1px solid rgba(169,215,251,.18);padding:7px 10px;border-radius:12px;font-size:11px;color:#d7e9ff}
+.ari-evidence-links a:hover{background:rgba(169,215,251,.18)}
+.ari-evidence-links strong{color:#a8e6ff;font-size:10px}
+.ari-evidence p{margin:9px 0 0;color:#8fa2b8;font-size:10px;line-height:1.5}
+#ari-sound-note{font-size:10px;color:#9eb5c8;line-height:1.45;margin:0;max-width:380px}
+#ari-sound-toggle:not([hidden]){margin-top:4px;border-color:rgba(255,200,150,.36);color:#f9d7b9}
+
+/* v24 · Una sola misión con múltiples tripulantes y registros aislados */
+.ari-crew-section{width:min(940px,100%);margin:24px auto 10px;text-align:left}
+.ari-crew-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 2px 13px}
+.ari-crew-overline{display:block;letter-spacing:.20em;font-size:10px;font-weight:700;color:#95bdd9;margin-bottom:5px}
+.ari-crew-heading h2{margin:0;font-size:17px;font-weight:530;color:#f2f7ff;letter-spacing:-.025em}
+.ari-crew-config{background:rgba(218,235,255,.07);border:1px solid rgba(218,235,255,.22);border-radius:999px;color:#d7e8ff;padding:9px 14px;cursor:pointer;font-size:11px}
+.ari-crew-config:hover{background:rgba(218,235,255,.16)}
+#ari-live-indicators.ari-indicators{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,265px),1fr));width:100%;gap:12px;margin:0;min-height:0;align-items:stretch}
+.ari-crew-card{border:1px solid rgba(167,208,250,.16);background:linear-gradient(145deg,rgba(27,37,56,.57),rgba(8,16,31,.75));border-radius:20px;padding:16px 15px 14px;backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);min-height:156px;box-shadow:inset 0 1px 0 rgba(255,255,255,.055)}
+.ari-crew-card.is-current{border-color:rgba(143,215,255,.65);box-shadow:0 0 26px rgba(57,137,205,.1),inset 0 1px rgba(188,232,255,.2)}
+.ari-crew-card.is-vacant{border-style:dashed;min-height:155px;background:rgba(13,20,30,.45)}
+.ari-crew-select{display:flex;align-items:center;gap:11px;width:100%;padding:0;text-align:left;cursor:pointer;background:transparent;border:0;color:#e8f4ff;min-height:45px}
+.ari-crew-select:focus-visible{outline:2px solid #97e0ff;outline-offset:4px;border-radius:10px}
+.ari-crew-avatar{width:37px;height:37px;border-radius:12px;display:grid;place-items:center;font-size:12px;letter-spacing:.025em;font-weight:650;color:#acd9f6;border:1px solid rgba(165,214,255,.25);background:rgba(116,169,228,.12);flex:none}
+.ari-crew-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.ari-crew-info strong{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ari-crew-info small{font-size:10px;color:#9baec0}
+.ari-crew-chevron{font-size:17px;color:#90bfd9}
+.ari-crew-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;border-top:1px solid rgba(211,236,255,.10);margin-top:12px;padding-top:11px}
+.ari-crew-metric{display:flex;flex-direction:column;min-width:0;gap:5px}
+.ari-crew-metric small{font-size:10px;color:#91a2b7;line-height:1.2}
+.ari-crew-metric strong{font-size:15px;color:#eef8ff;font-weight:570;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ari-crew-check-status{color:#8b9caf;font-size:10px;margin:11px 0 0;line-height:1.35}
+.ari-crew-help{text-align:center;color:#91a4b7;font-size:11px;margin:12px 0 0}
+.mission-crew-settings{display:flex;align-items:end;flex-wrap:wrap;gap:10px;border:1px solid rgba(185,218,255,.21);border-radius:15px;background:rgba(100,130,190,.06);padding:14px;margin:12px 0}
+.mission-crew-settings label{flex:1 1 175px;font-size:12px}
+.mission-crew-settings select{width:100%;margin-top:6px;min-height:39px}
+.mission-crew-settings #mission-crew-note{flex-basis:100%;margin:0;font-size:11px}
+@media(max-width:750px){.ari-crew-section{margin-top:18px}.ari-crew-heading h2{font-size:14px}.ari-crew-card{min-height:149px}.ari-crew-metric strong{font-size:14px}.ari-crew-metric small{font-size:9px}.ari-crew-help{line-height:1.5}}
+
+/* v25: five-tab Liquid Glass navigation */
+.ari-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr));width:min(570px,calc(100% - 22px));}
+.ari-bottom-nav .ari-tab{min-width:0}
+@media(max-width:450px){.ari-bottom-nav{padding:5px;border-radius:22px;}.ari-tab{min-height:49px;gap:3px}.ari-tab svg{width:18px;height:18px}.ari-tab span{font-size:9px;}}
+
+/* ARI Final 2026: explicación con trazabilidad NASA; conserva interfaz espacial. */
+#nasa-guidance { margin-top:12px; padding:14px; border:1px solid #607b9470;
+  background:rgba(23,43,60,.65); border-radius:12px; font-size:.86rem; line-height:1.55; }
+#nasa-guidance[hidden] {display:none!important;}
+#nasa-guidance p {margin:0 0 9px;}
+#nasa-guidance .nasa-guidance-title {font-weight:700;color:#c4dbf4;font-size:.81rem;}
+#nasa-guidance .nasa-guidance-links {font-size:.77rem; color:#a7c1d9;}
+#nasa-guidance a {color:#aee7fc; text-decoration:underline; text-underline-offset:3px;}
+
+.ari-health-brief {padding:14px 18px; margin:10px 0 20px; border:1px solid rgba(114,165,202,.37);
+ background:rgba(10,23,37,.74);border-radius:16px;line-height:1.5;max-width:1024px;}
+.ari-health-brief[hidden]{display:none!important}
+.ari-health-brief-label {color:#8db5d4;font-size:.67rem;font-weight:700;letter-spacing:.11em;}
+.ari-health-brief h3{font-size:1rem;font-weight:680;color:#f2f7ff;margin:.3rem 0;}
+.ari-health-brief p{margin:.35rem 0;color:#c1cfda;font-size:.83rem;}
+#ari-health-brief-sources{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:9px;font-size:.76rem;}
+#ari-health-brief-sources span{color:#b5c3d5;}
+#ari-health-brief-sources a{color:#b9eafa; border-bottom:1px solid rgba(185,234,250,.55);}
